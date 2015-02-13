@@ -1,0 +1,13 @@
+<launch>
+        <group ns="/stereo/right">
+                <node name="raspicam_node_right" pkg="raspicam" type="raspicam_node">
+                        <param name="width"  value="600" />
+                        <param name="height" value="400" />
+                        <param name="framerate" value="30" />
+                        <param name="quality" value="25"/>
+                        <remap from="camera2/camera_info" to="camera_info" />
+                </node>
+        </group>
+	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
+</launch>
+

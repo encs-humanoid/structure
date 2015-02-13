@@ -1,0 +1,10 @@
+<launch>
+	<group ns="/stereo/right">
+		<node name="right_decompresser" pkg="image_transport" type="republish"
+			args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
+		<node name="face_detect_node" pkg="vision" type="face_detect_node.py">
+                        <param name="in" value="/stereo/right/image_raw" />
+		</node>
+	</group>
+</launch>
+

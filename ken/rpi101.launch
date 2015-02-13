@@ -1,0 +1,13 @@
+<launch>
+        <group ns="/stereo/left">
+                <node name="raspicam_node_left" pkg="raspicam" type="raspicam_node">
+                        <param name="width"  value="600" />
+                        <param name="height" value="400" />
+                        <param name="framerate" value="30" />
+                        <param name="quality" value="25"/>
+                        <remap from="camera/camera_info" to="camera_info" />
+                </node>
+        </group>
+	<node name="pan_tilt_node" pkg="vision" type="pan_tilt_node.py"/>
+</launch>
+

@@ -1,0 +1,12 @@
+<launch>
+	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py"/>
+	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py"/>
+	<group ns="/stereo/left">
+		<node name="republish" pkg="image_transport" type="republish"
+			args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
+		<node name="face_detect_node" pkg="vision" type="face_detect_node.py">
+                        <param name="in" value="/stereo/left/image_raw" />
+		</node>
+	</group>
+</launch>
+
