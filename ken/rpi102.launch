@@ -1,6 +1,6 @@
 <launch>
         <group ns="/stereo/right">
-                <node name="raspicam_node_right" pkg="raspicam" type="raspicam_node">
+                <node name="raspicam_node_right" pkg="raspicam" type="raspicam_node" launch-prefix="$(find structure)/ken/start_capture_right.sh">
                         <param name="width"  value="600" />
                         <param name="height" value="400" />
                         <param name="framerate" value="30" />
