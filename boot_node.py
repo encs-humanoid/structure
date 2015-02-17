@@ -56,14 +56,14 @@ class BootNode(object):
 
     # implement roslaunch boot.launch
     def launch_nodes(self):
-        package = 'structure'
-        executable = ''
-        node = roslaunch.core.Node(package, executable)
+        # package = 'structure'
+        # executable = ''
+        # node = roslaunch.core.Node(package, executable)
 
-        launch = roslaunch.scriptapi.ROSLaunch()
-        launch.start()
+        # launch = roslaunch.scriptapi.ROSLaunch()
+        # launch.start()
 
-        self.launch_process = launch.launch(node)
+        # self.launch_process = launch.launch(node)
 
 
     def reset(self):
