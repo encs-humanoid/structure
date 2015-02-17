@@ -3,6 +3,8 @@ structure
 
 Node and launch file organization for the IEEE ENCS Humanoid Robot Project
 
+CAUTION: incomplete and not debugged yet
+
 Installation (to be completed on each separate computer):
 
 Build a catkin workspace if you haven't already:
