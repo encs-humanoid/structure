@@ -15,7 +15,7 @@ cd ~/catkin_ws/src
 catkin_init_workspace
 ```
 
-Fetch and run the boot_node installer:
+Fetch the structure code and run the boot_node installer:
 
 ```sh
 cd catkin_ws/src
