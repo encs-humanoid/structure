@@ -28,6 +28,7 @@ from std_msgs.msg import String
 import os
 import netifaces as ni
 import roslaunch
+import signal
 from subprocess import Popen
 
 AF_PACKET = 17
@@ -55,8 +56,10 @@ class BootNode(object):
 
     # implement roslaunch boot.launch
     def launch_nodes(self):
-        self.launch = Popen("roslaunch boot.launch")
-        self.launch_process = p.pid
+        # FIXME : avoid file not found errors
+        self.launch = Popen(["/opt/ros/hydro/bin/roslaunch", "./boot.launch"])
+        self.launch_process = self.launch.pid
+        rospy.loginfo(rospy.get_caller_id() + ": Child PID: " + str(self.launch_process))
         self.launch.communicate()
 
 
@@ -85,8 +88,10 @@ class BootNode(object):
 
     def stop(self):
         if self.nodes_are_up():
-            rospy.loginfo(rospy.get_caller_id() + ": Stopping nodes")
+            rospy.loginfo(rospy.get_caller_id() +
+                          ": Stopping node process: " + str(self.launch_process))
             os.kill(self.launch_process, signal.SIGQUIT)
+            self.launch_process = None
         else:
             rospy.loginfo(rospy.get_caller_id() + ": Did not find running nodes")
 
