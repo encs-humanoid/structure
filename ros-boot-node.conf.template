@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# ros-boot-node.conf
+
+description "ROS boot node"
+author "Mark Whelan <m@townunderground.net>"
+# 02/17/2015
+
+setuid root
+setgid root
+
+# When to start the service
+start on runlevel [2345]
+
+# When to stop the service
+stop on runlevel [016]
+
+# Automatically restart process if crashed
+# respawn
+
+# Essentially lets upstart know the process will detach itself to the background
+# expect fork
+
+# Start boot_node_starter.sh
+# Installer script should set the path in the next line:

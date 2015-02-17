@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source /opt/ros/hydro/setup.bash
+
+# Installer script should set next line to path of boot_node.py
