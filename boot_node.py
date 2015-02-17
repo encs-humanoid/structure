@@ -24,12 +24,11 @@
 
 from __future__ import print_function
 import rospy
-import roslaunch
 from std_msgs.msg import String
 import os
 import netifaces as ni
 import roslaunch
-#from subprocess import check_output # maybe
+from subprocess import Popen
 
 AF_PACKET = 17
 
@@ -44,31 +43,27 @@ class BootNode(object):
     def on_boot_topic(self, msg):
         command = msg.data
         if command in self.actions:
-            rospy.loginfo(rospy.get_caller_id() + ": " + command)
+            rospy.loginfo(rospy.get_caller_id() + ": Received command " + command)
             eval("self." + command + "()")
         else:
             rospy.loginfo(rospy.get_caller_id() + ": UNRECOGNIZED MESSAGE: " + msg.data)
 
 
     def nodes_are_up(self):
-        return self.launch_process and self.launch_process.is_alive()
+        return self.launch_process != None # and self.launch_process.is_alive()
 
 
     # implement roslaunch boot.launch
     def launch_nodes(self):
-        # package = 'structure'
-        # executable = ''
-        # node = roslaunch.core.Node(package, executable)
-
-        # launch = roslaunch.scriptapi.ROSLaunch()
-        # launch.start()
-
-        # self.launch_process = launch.launch(node)
+        self.launch = Popen("roslaunch boot.launch")
+        self.launch_process = p.pid
+        self.launch.communicate()
 
 
     def reset(self):
         rospy.loginfo(rospy.get_caller_id() + ": Resetting nodes")
         if self.nodes_are_up():
+            rospy.loginfo(rospy.get_caller_id() + ": Found nodes up. Stopping...")
             self.stop()
         for nic in ni.interfaces():
             for iface in ni.ifaddresses(nic)[17]:
@@ -84,12 +79,16 @@ class BootNode(object):
                                   ": Launching boot.launch")
                     self.launch_nodes()
                     break
+        if not rospy.has_param(req):
+             rospy.loginfo(rospy.get_caller_id() + ": Could not find params for " + req)
 
 
     def stop(self):
-        rospy.loginfo(rospy.get_caller_id() + ": Stopping nodes")
-        self.launch_process.stop()
-
+        if self.nodes_are_up():
+            rospy.loginfo(rospy.get_caller_id() + ": Stopping nodes")
+            os.kill(self.launch_process, signal.SIGQUIT)
+        else:
+            rospy.loginfo(rospy.get_caller_id() + ": Did not find running nodes")
 
     def shutdown(self):
         self.stop()
