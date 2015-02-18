@@ -20,7 +20,7 @@ Fetch the structure code and run the boot_node installer:
 ```sh
 cd catkin_ws/src
 git clone https://github.com/encs-humanoid/structure.git
-cd structure
+cd structure/scripts
 ./install_boot_node.sh
 ```
 
