@@ -25,7 +25,7 @@ fi
 
 TARGET=/etc/init/ros-boot-node.conf
 UPPER_DIR=`pwd | sed 's/\/catkin_ws.*//g'`
-BOOT_NODE_DIR=$UPPER_DIR/catkin_ws/src/structure
+BOOT_NODE_DIR=$UPPER_DIR/catkin_ws/src/structure/scripts
 
 # determine if upstart is available on this machine
 dpkg --get-selections | grep ^upstart > /dev/null
