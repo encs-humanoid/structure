@@ -11,11 +11,10 @@
 # - /launch_info_<this_mac_address>
 #
 # Invoked at boot time by upstart init file, installed as
-# /etc/init/ros_boot.conf, this program should be run at startup
+# /etc/init/ros-boot-node.conf, this program should be run at startup
 # on every computer in the robot.
 #
 # TODO:
-# - launch boot.launch and save pid
 # - pub every 10 secs to /boot_info, status + ip + mac
 # - stream debugging output messages from roslaunch, to /launch_info_<mac_address>
 #
