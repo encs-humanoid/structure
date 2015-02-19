@@ -50,7 +50,7 @@ class BootNode(object):
 
 
     def nodes_are_up(self):
-        return self.launch_process != None # and self.launch_process.is_alive()
+        return self.launch_process != None and os.path.exists("/proc/" + str(self.launch_process))
 
 
     # implement roslaunch boot.launch
