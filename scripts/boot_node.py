@@ -110,7 +110,7 @@ class BootNode(object):
 	    if self.nodes_are_up():
 		rospy.loginfo(rospy.get_caller_id() +
 			      ": Stopping node process: " + str(self.launch_process))
-		os.kill(self.launch_process, signal.SIGQUIT)
+		os.kill(self.launch_process, signal.SIGINT)
 		self.launch_process = None
 	    else:
 		rospy.loginfo(rospy.get_caller_id() + ": Did not find running nodes")
