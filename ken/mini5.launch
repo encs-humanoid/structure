@@ -2,9 +2,10 @@
 	<group ns="/stereo/right">
 		<node name="right_decompresser" pkg="image_transport" type="republish"
 			args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
-		<node name="face_detect_node" pkg="vision" type="face_detect_node.py">
+		<node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="">
                         <param name="in" value="/stereo/right/image_raw" />
 		</node>
 	</group>
+	<node name="joy_node" pkg="joy" type="joy_node" />
 </launch>
 

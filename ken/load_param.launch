@@ -1,0 +1,6 @@
+<launch>
+  <param name="/role/boot_node_0016cba72f87" textfile="/home/human/catkin_ws/src/structure/ken/mini0.launch" />
+  <param name="/role/boot_node_0016cba8e1d1" textfile="/home/human/catkin_ws/src/structure/ken/mini5.launch" />
+  <param name="/role/boot_node_b827eb6376c8" textfile="/home/human/catkin_ws/src/structure/ken/rpi101.launch" />
+  <param name="/role/boot_node_b827eb4f3ac5" textfile="/home/human/catkin_ws/src/structure/ken/rpi102.launch" />
+</launch>
