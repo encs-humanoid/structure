@@ -37,7 +37,7 @@ class BootNode(object):
         self.actions = ["reset", "stop", "shutdown"]
         self.launch_process = None
         rospy.Subscriber('boot', String, self.on_boot_topic)
-        rospy.init_node('boot')
+        rospy.init_node('boot', anonymous=True)
 
 
     def on_boot_topic(self, msg):
@@ -56,7 +56,7 @@ class BootNode(object):
     # implement roslaunch boot.launch
     def launch_nodes(self):
         # FIXME : avoid file not found errors
-        self.launch = Popen(["/opt/ros/hydro/bin/roslaunch", "./boot.launch"])
+        self.launch = Popen(["roslaunch", "./boot.launch"])
         self.launch_process = self.launch.pid
         rospy.loginfo(rospy.get_caller_id() + ": Child PID: " + str(self.launch_process))
         self.launch.communicate()
