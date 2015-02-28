@@ -34,17 +34,24 @@ AF_PACKET = 17
 
 class BootNode(object):
     def __init__(self):
-        self.actions = ["reset", "stop", "shutdown"]
+        self.actions = {"reset": self.reset, "stop": self.stop, "shutdown": self.shutdown}
         self.launch_process = None
         rospy.Subscriber('boot', String, self.on_boot_topic)
         rospy.init_node('boot', anonymous=True)
 
 
     def on_boot_topic(self, msg):
-        command = msg.data
-        if command in self.actions:
-            rospy.loginfo(rospy.get_caller_id() + ": Received command " + command)
-            eval("self." + command + "()")
+	params = msg.data.split()
+	if len(params) > 0:
+	    command = params[0]
+	    applies_to = set()
+	    if len(params) > 1:
+		applies_to = set(params[1:])
+	    if command in self.actions.keys():
+		rospy.loginfo(rospy.get_caller_id() + ": Received command " + command)
+		self.actions[command](applies_to)
+	    else:
+		rospy.loginfo(rospy.get_caller_id() + ": UNRECOGNIZED COMMAND: " + command)
         else:
             rospy.loginfo(rospy.get_caller_id() + ": UNRECOGNIZED MESSAGE: " + msg.data)
 
@@ -62,41 +69,57 @@ class BootNode(object):
         self.launch.communicate()
 
 
-    def reset(self):
-        rospy.loginfo(rospy.get_caller_id() + ": Resetting nodes")
-        if self.nodes_are_up():
-            rospy.loginfo(rospy.get_caller_id() + ": Found nodes up. Stopping...")
-            self.stop()
+    def reset(self, applies_to):
+	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
+	    rospy.loginfo(rospy.get_caller_id() + ": Resetting nodes")
+	    if self.nodes_are_up():
+		rospy.loginfo(rospy.get_caller_id() + ": Found nodes up. Stopping...")
+		self.stop()
+	    mac_addresses = self.get_mac_addresses()
+	    if len(applies_to) > 0:
+		mac_addresses &= applies_to
+	    rospy.loginfo(rospy.get_caller_id() + ": MAC addresses " + str(mac_addresses))
+	    for mac in mac_addresses:
+		req = "/role/boot_node_" + mac
+		if rospy.has_param(req):
+		    rospy.loginfo(rospy.get_caller_id() + ": Request for " + req)
+		    launch_file_contents = rospy.get_param(req)
+		    rospy.loginfo(rospy.get_caller_id() +
+				  ": Writing contents to boot.launch file")
+		    with open("boot.launch", "w") as f:
+			f.write(launch_file_contents)
+		    rospy.loginfo(rospy.get_caller_id() +
+				  ": Launching boot.launch")
+		    self.launch_nodes()
+		    break
+		if not rospy.has_param(req):
+		     rospy.loginfo(rospy.get_caller_id() + ": Could not find params for " + req)
+
+
+    def get_mac_addresses(self):
+	mac_addresses = set()
         for nic in ni.interfaces():
             for iface in ni.ifaddresses(nic)[17]:
-                req = "/role/boot_node_" + iface['addr'].replace(":", "")
-                if rospy.has_param(req):
-                    rospy.loginfo(rospy.get_caller_id() + ": Request for " + req)
-                    launch_file_contents = rospy.get_param(req)
-                    rospy.loginfo(rospy.get_caller_id() +
-                                  ": Writing contents to boot.launch file")
-                    with open("boot.launch", "w") as f:
-                        f.write(launch_file_contents)
-                    rospy.loginfo(rospy.get_caller_id() +
-                                  ": Launching boot.launch")
-                    self.launch_nodes()
-                    break
-        if not rospy.has_param(req):
-             rospy.loginfo(rospy.get_caller_id() + ": Could not find params for " + req)
+                mac = iface['addr'].replace(":", "")
+		mac_addresses.add(mac)
+	return mac_addresses
 
 
-    def stop(self):
-        if self.nodes_are_up():
-            rospy.loginfo(rospy.get_caller_id() +
-                          ": Stopping node process: " + str(self.launch_process))
-            os.kill(self.launch_process, signal.SIGQUIT)
-            self.launch_process = None
-        else:
-            rospy.loginfo(rospy.get_caller_id() + ": Did not find running nodes")
+    def stop(self, applies_to):
+	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
+	    if self.nodes_are_up():
+		rospy.loginfo(rospy.get_caller_id() +
+			      ": Stopping node process: " + str(self.launch_process))
+		os.kill(self.launch_process, signal.SIGQUIT)
+		self.launch_process = None
+	    else:
+		rospy.loginfo(rospy.get_caller_id() + ": Did not find running nodes")
 
-    def shutdown(self):
-        self.stop()
-        os.system("sudo poweroff")
+
+    def shutdown(self, applies_to):
+	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
+	    self.stop()
+	    os.system("sudo poweroff")
 
 
     def run(self):
