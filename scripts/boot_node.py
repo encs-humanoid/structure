@@ -74,7 +74,7 @@ class BootNode(object):
 	    rospy.loginfo(rospy.get_caller_id() + ": Resetting nodes")
 	    if self.nodes_are_up():
 		rospy.loginfo(rospy.get_caller_id() + ": Found nodes up. Stopping...")
-		self.stop()
+		self.stop(applies_to)
 	    mac_addresses = self.get_mac_addresses()
 	    if len(applies_to) > 0:
 		mac_addresses &= applies_to
@@ -118,7 +118,7 @@ class BootNode(object):
 
     def shutdown(self, applies_to):
 	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
-	    self.stop()
+	    self.stop(applies_to)
 	    os.system("sudo poweroff")
 
 
