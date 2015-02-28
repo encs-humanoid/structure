@@ -14,7 +14,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin:
 . /lib/init/vars.sh
 
 do_start () {
-	/home/pi/catkin_ws/src/structure/scripts/boot_node_starter.sh
+	/home/pi/catkin_ws/src/structure/scripts/boot_node_starter.sh&
 }
 
 do_status () {
