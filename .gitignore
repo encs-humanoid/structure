@@ -3,3 +3,4 @@ Vagrantfile
 ros_local.cfg
 boot_node_starter.sh
 boot.launch
+boot_node.log
