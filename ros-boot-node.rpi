@@ -1,0 +1,49 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          ros-boot-node
+# Required-Start:    hostname $local_fs
+# Required-Stop:
+# Should-Start:
+# Default-Start:     1 2 3 4 5
+# Default-Stop:
+# Short-Description: ros-boot-node
+# Description:       Start boot_node_starter.sh
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:
+. /lib/init/vars.sh
+
+do_start () {
+	/home/pi/catkin_ws/src/structure/scripts/boot_node_starter.sh
+}
+
+do_status () {
+	if [ -f /var/run/boot_node.py ] ; then
+		return 0
+	else
+		return 4
+	fi
+}
+
+case "$1" in
+  start|"")
+	do_start
+	;;
+  restart|reload|force-reload)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	# No-op
+	;;
+  status)
+	do_status
+	exit $?
+	;;
+  *)
+	echo "Usage: ros-boot-node [start|stop|status]" >&2
+	exit 3
+	;;
+esac
+
+:
