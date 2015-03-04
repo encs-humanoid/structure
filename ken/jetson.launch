@@ -1,5 +1,5 @@
 <launch>
-	<arg name="face_detect_node_args" default="--show"/>
+	<arg name="face_detect_node_args" default=""/>
         <group ns="/stereo/left">
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
@@ -9,7 +9,6 @@
                 </node>
         </group>
 
-	<arg name="face_detect_node_args" default="--show"/>
         <group ns="/stereo/right">
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
