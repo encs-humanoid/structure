@@ -7,6 +7,11 @@
                         <param name="in" value="/stereo/left/image_raw" />
 			<param name="out" value="/stereo/left/detected_face" />
                 </node>
+                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py" args="">
+                        <param name="in" value="/stereo/left/image_raw" />
+                        <param name="center_gaze_x" value="0.6" />
+                        <param name="center_gaze_y" value="0.45" />
+                </node>
         </group>
 
         <group ns="/stereo/right">
@@ -15,6 +20,11 @@
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/right/image_raw" />
                         <param name="out" value="/stereo/right/detected_face" />
+                </node>
+                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py" args="">
+                        <param name="in" value="/stereo/right/image_raw" />
+                        <param name="center_gaze_x" value="0.33" />
+                        <param name="center_gaze_y" value="0.54" />
                 </node>
         </group>
 </launch>
