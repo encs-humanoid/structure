@@ -1,0 +1,46 @@
+role: {boot_node_0016cba72f87: "<launch>\n\t<node name=\"ai_respond_node\" pkg=\"\
+    ai\" type=\"ai_respond_node.py\"/>\n\t<node name=\"listen_node\" pkg=\"speech-and-hearing\"\
+    \ type=\"listen_node.py\"/>\n\t<group ns=\"/stereo/left\">\n\t\t<node name=\"\
+    republish\" pkg=\"image_transport\" type=\"republish\"\n\t\t\targs=\"compressed\
+    \ in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw\"\
+    />\n\t\t<node name=\"face_detect_node\" pkg=\"vision\" type=\"face_detect_node.py\"\
+    >\n                        <param name=\"in\" value=\"/stereo/left/image_raw\"\
+    \ />\n\t\t</node>\n\t</group>\n</launch>\n\n", boot_node_0016cba8e1d1: "<launch>\n\
+    \t<group ns=\"/stereo/right\">\n\t\t<node name=\"right_decompresser\" pkg=\"image_transport\"\
+    \ type=\"republish\"\n\t\t\targs=\"compressed in:=/stereo/right/camera/image _image_transport:=compressed\
+    \ raw out:=/stereo/right/image_raw\"/>\n\t\t<node name=\"face_detect_node\" pkg=\"\
+    vision\" type=\"face_detect_node.py\">\n                        <param name=\"\
+    in\" value=\"/stereo/right/image_raw\" />\n\t\t</node>\n\t</group>\n</launch>\n\
+    \n", boot_node_b827eb4f3ac5: "<launch>\n        <group ns=\"/stereo/right\">\n\
+    \                <node name=\"raspicam_node\" pkg=\"raspicam\" type=\"raspicam_node\"\
+    \ launch-prefix=\"$(find structure)/ken/start_capture_right.sh\">\n          \
+    \              <param name=\"width\"  value=\"600\" />\n                     \
+    \   <param name=\"height\" value=\"400\" />\n                        <param name=\"\
+    framerate\" value=\"30\" />\n                        <param name=\"quality\" value=\"\
+    25\"/>\n\t\t\t<param name=\"tf_prefix\" value=\"/stereo/right\"/>\n          \
+    \              <remap from=\"camera2/camera_info\" to=\"camera_info\" />\n   \
+    \             </node>\n        </group>\n\t<node name=\"speak_node\" pkg=\"speech-and-hearing\"\
+    \ type=\"speak_node.py\"/>\n</launch>\n\n", boot_node_b827eb6376c8: "<launch>\n\
+    \        <group ns=\"/stereo/left\">\n                <node name=\"raspicam_node\"\
+    \ pkg=\"raspicam\" type=\"raspicam_node\" launch-prefix=\"$(find structure)/ken/start_capture_left.sh\"\
+    >\n                        <param name=\"width\"  value=\"600\" />\n         \
+    \               <param name=\"height\" value=\"400\" />\n                    \
+    \    <param name=\"framerate\" value=\"30\" />\n                        <param\
+    \ name=\"quality\" value=\"25\"/>\n\t\t\t<param name=\"tf_prefix\" value=\"/stereo/left\"\
+    />\n                        <remap from=\"camera/camera_info\" to=\"camera_info\"\
+    \ />\n                </node>\n        </group>\n<!--\n\t<node name=\"pan_tilt_node\"\
+    \ pkg=\"vision\" type=\"pan_tilt_node.py\"/>\n-->\n</launch>\n\n"}
+rosdistro: 'hydro
+
+  '
+roslaunch:
+  uris: {host_192_168_8_100__35697: 'http://192.168.8.100:35697/', host_192_168_8_100__36711: 'http://192.168.8.100:36711/',
+    host_192_168_8_100__49281: 'http://192.168.8.100:49281/', host_192_168_8_100__50747: 'http://192.168.8.100:50747/'}
+rosversion: '1.10.11
+
+  '
+run_id: af49f0e2-bf65-11e4-8d9c-0016cba72f87
+stereo:
+  left:
+    face_detect_node: {in: /stereo/left/image_raw}
+    republish: {image_transport: compressed}
