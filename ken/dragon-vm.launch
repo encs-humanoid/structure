@@ -1,0 +1,27 @@
+<launch>
+	<group ns="/stereo/left">
+		<node name="face_image_view" pkg="image_view" type="image_view" args="image:=/stereo/left/detected_face/image"/>
+		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/left/detected_face /detected_face">
+			<param name="lazy" value="True"/>
+		</node>
+	</group>
+
+	<group ns="/stereo/right">
+		<node name="face_image_view" pkg="image_view" type="image_view" args="image:=/stereo/right/detected_face/image"/>
+		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/right/detected_face /detected_face">
+			<param name="lazy" value="True"/>
+		</node>
+	</group>
+
+	<node name="recognize_face_node" pkg="vision" type="recognize_face_node.py" args="" cwd="node">
+		<param name="min_match" value="5"/>
+		<param name="min_processes" value="4"/>
+		<param name="facedb" value="facedb"/>
+	</node>
+
+	<node name="learn_face_node" pkg="vision" type="learn_face_node.py" args="" cwd="node">
+		<param name="delta_xy_px" value="20"/>
+		<param name="delta_t_ms" value="1000"/>
+		<param name="facedb" value="facedb"/>
+	</node>
+</launch>
