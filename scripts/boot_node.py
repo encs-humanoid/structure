@@ -28,16 +28,18 @@ import os
 import netifaces as ni
 import roslaunch
 import signal
+import socket
 from subprocess import Popen
 
 AF_PACKET = 17
 
 class BootNode(object):
     def __init__(self):
-        self.actions = {"reset": self.reset, "stop": self.stop, "shutdown": self.shutdown}
+        self.actions = {"reset": self.reset, "stop": self.stop, "shutdown": self.shutdown, "status": self.status}
         self.launch_process = None
-        rospy.Subscriber('boot', String, self.on_boot_topic)
         rospy.init_node('boot', anonymous=True)
+	self.status_publisher = rospy.Publisher("say", String)
+        rospy.Subscriber('boot', String, self.on_boot_topic)
 
 
     def on_boot_topic(self, msg):
@@ -122,12 +124,19 @@ class BootNode(object):
 	    os.system("sudo poweroff")
 
 
+    def status(self, applies_to):
+	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
+	    running_status = "running" if self.nodes_are_up() else "not running"
+	    self.status_publisher.publish(socket.gethostname() + " nodes are " + running_status + "...")
+
+
     def run(self):
+	self.status_publisher.publish(socket.gethostname() + " is up")
         rospy.spin()
 
 
 if __name__ == "__main__":
     try:
-        boot_node = BootNode()
-        boot_node.run()
+	boot_node = BootNode()
+	boot_node.run()
     except rospy.ROSInterruptException: pass
