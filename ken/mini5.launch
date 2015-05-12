@@ -1,18 +1,13 @@
 <launch>
 	<group ns="/stereo/right">
-		<node name="right_decompresser" pkg="image_transport" type="republish"
+		<node name="republish" pkg="image_transport" type="republish"
 			args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
-<!--
-		<node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="">
-                        <param name="in" value="/stereo/right/image_raw" />
-		</node>
--->
-<!--
 		<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py" args="">
                         <param name="in" value="/stereo/left/image_raw" />
-			<param name="center_gaze_x" value="0.33" />
-			<param name="center_gaze_y" value="0.54" />
+			<param name="center_gaze_x" value="0.66" />
+			<param name="center_gaze_y" value="0.4" />
 		</node>
+<!--
 -->
 	</group>
 	<node name="joy_node" pkg="joy" type="joy_node" />

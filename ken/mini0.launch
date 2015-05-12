@@ -1,17 +1,18 @@
 <launch>
-<!--
 	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py"/>
 	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py"/>
+<!-- speak_node is started separately by ~/catkin_ws/src/structure/scripts/roscore_starter.ubuntu.sh
+	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
 -->
 	<group ns="/stereo/left">
 		<node name="republish" pkg="image_transport" type="republish"
 			args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
-<!--
 		<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py" args="">
                         <param name="in" value="/stereo/left/image_raw" />
-			<param name="center_gaze_x" value="0.6" />
-			<param name="center_gaze_y" value="0.45" />
+			<param name="center_gaze_x" value="0.7" />
+			<param name="center_gaze_y" value="0.35" />
 		</node>
+<!--
 -->
 	</group>
 </launch>

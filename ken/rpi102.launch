@@ -9,6 +9,5 @@
                         <remap from="camera2/camera_info" to="camera_info" />
                 </node>
         </group>
-	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
 </launch>
 
