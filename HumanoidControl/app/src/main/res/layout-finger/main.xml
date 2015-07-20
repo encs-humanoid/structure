@@ -9,6 +9,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rosMasterUrlText"
+                android:layout_weight="1"
+                android:text="http://192.168.8.100:11311/" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connect"
+                android:id="@+id/connectButton" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Not connected."
+            android:id="@+id/connectionStatusView"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffff0000" />
+
         <Button
             android:id="@+id/stop_listening_button"
             android:layout_width="match_parent"
