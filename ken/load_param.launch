@@ -1,10 +1,15 @@
 <launch>
-  <param name="/role/boot_node_c46e1f24ddad" textfile="/home/human/catkin_ws/src/structure/ken/sonny.launch" />
-  <param name="/role/boot_node_b827eb6376c8" textfile="/home/human/catkin_ws/src/structure/ken/rpi101.launch" />
-  <param name="/role/boot_node_b827eb4f3ac5" textfile="/home/human/catkin_ws/src/structure/ken/rpi102.launch" />
-  <param name="/role/boot_node_0016cba72f87" textfile="/home/human/catkin_ws/src/structure/ken/mini0.launch" />
+  <param name="/role/boot_node_fcaa1459a5a7" textfile="/home/human/catkin_ws/src/structure/ken/sonny.launch" />
+  <param name="/role/boot_node_b827eb6376c8" textfile="/home/human/catkin_ws/src/structure/ken/left_eye.launch" />
+  <param name="/role/boot_node_b827eb4f3ac5" textfile="/home/human/catkin_ws/src/structure/ken/right_eye.launch" />
 
+  <param name="/role/boot_node_b827eb3d1492" textfile="/home/human/catkin_ws/src/structure/ken/left_eye.launch" />
+  <param name="/role/boot_node_b827eb4ec30e" textfile="/home/human/catkin_ws/src/structure/ken/right_eye.launch" />
+
+  <param name="/role/boot_node_0862664f13a0" textfile="/home/human/catkin_ws/src/structure/ken/sonny.launch" />
   <param name="/role/boot_node_000c290c7d78" textfile="/home/human/catkin_ws/src/structure/ken/dragon-vm.launch" />
   <param name="/role/boot_node_00044b212230" textfile="/home/human/catkin_ws/src/structure/ken/jetson.launch" />
+
+  <param name="/role/boot_node_0016cba72f87" textfile="/home/human/catkin_ws/src/structure/ken/mini0.launch" />
   <param name="/role/boot_node_0016cba8e1d1" textfile="/home/human/catkin_ws/src/structure/ken/mini5.launch" />
 </launch>
