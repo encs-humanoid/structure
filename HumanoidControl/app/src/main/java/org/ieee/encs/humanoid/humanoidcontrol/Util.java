@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Util {
 
-	public static String getIpAddress() {
+	public static String getIpAddress(String subnetFilter) {
 		try {
 			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 			while (interfaces.hasMoreElements()) {
@@ -16,15 +16,15 @@ public class Util {
 				List<InterfaceAddress> interfaceAddresses = networkInterface.getInterfaceAddresses();
 				for (InterfaceAddress address : interfaceAddresses) {
 					String hostAddress = address.getAddress().getHostAddress();
-					if (hostAddress.startsWith("192.168.8."))
+					if (hostAddress.startsWith(subnetFilter))
 						return hostAddress;
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to determine IP address", e);
+			throw new RuntimeException("Failed to determine IP address for subnet " + subnetFilter, e);
 		}
 	
-		throw new RuntimeException("Failed to determine IP address: No network interfaces found");
+		throw new RuntimeException("Failed to determine IP address: No network interfaces found for subnet " + subnetFilter);
 	}
 
 	public static void sleepQuietly(int millis) {
