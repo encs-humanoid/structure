@@ -31,6 +31,7 @@ import signal
 import socket
 from subprocess import Popen
 import time
+import threading
 
 AF_PACKET = 17
 
@@ -72,7 +73,7 @@ class BootNode(object):
         self.launch.communicate()
 
 
-    def reset(self, applies_to):
+    def reset(self, applies_to=set()):
 	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
 	    rospy.loginfo(rospy.get_caller_id() + ": Resetting nodes")
 	    if self.nodes_are_up():
@@ -82,21 +83,33 @@ class BootNode(object):
 	    if len(applies_to) > 0:
 		mac_addresses &= applies_to
 	    rospy.loginfo(rospy.get_caller_id() + ": MAC addresses " + str(mac_addresses))
-	    for mac in mac_addresses:
-		req = "/role/boot_node_" + mac
-		if rospy.has_param(req):
-		    rospy.loginfo(rospy.get_caller_id() + ": Request for " + req)
-		    launch_file_contents = rospy.get_param(req)
-		    rospy.loginfo(rospy.get_caller_id() +
-				  ": Writing contents to boot.launch file")
-		    with open("boot.launch", "w") as f:
-			f.write(launch_file_contents)
-		    rospy.loginfo(rospy.get_caller_id() +
-				  ": Launching boot.launch")
-		    self.launch_nodes()
+	    num_retries = 10
+	    num_tries = 0
+	    for num_tries in range(num_retries):
+		launched = False
+		for mac in mac_addresses:
+		    req = "/role/boot_node_" + mac
+		    if rospy.has_param(req):
+			rospy.loginfo(rospy.get_caller_id() + ": Request for " + req)
+			launch_file_contents = rospy.get_param(req)
+			rospy.loginfo(rospy.get_caller_id() +
+				      ": Writing contents to boot.launch file")
+			with open("boot.launch", "w") as f:
+			    f.write(launch_file_contents)
+			rospy.loginfo(rospy.get_caller_id() +
+				      ": Launching boot.launch")
+			t = threading.Thread(target=self.launch_nodes)
+			t.setDaemon(True)
+			t.start()
+			#self.launch_nodes()
+			launched = True
+			break
+		    if not rospy.has_param(req):
+			rospy.loginfo(rospy.get_caller_id() + ": Could not find params for " + req)
+		if launched:
 		    break
-		if not rospy.has_param(req):
-		     rospy.loginfo(rospy.get_caller_id() + ": Could not find params for " + req)
+		else:
+		    time.sleep(1)
 
 
     def get_mac_addresses(self):
@@ -136,6 +149,8 @@ class BootNode(object):
 
 
     def run(self):
+	time.sleep(5)  # HACK give a chance for the system to finish starting up
+	self.reset()  # automatically start nodes on startup
 	self.status_publisher.publish(socket.gethostname() + " is up")
         rospy.spin()
 

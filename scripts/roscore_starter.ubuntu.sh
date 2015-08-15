@@ -28,10 +28,12 @@ echo $PYTHONPATH >> roscore.log
 roscore 1>>roscore.log 2>>roscore.err </dev/null &
 
 # load the launch files into the parameter server
-sleep 5
+sleep 2
 roslaunch structure load_param.launch
 
-espeak -v english-us -s 140 -p 80 -g 2 "Hi..." --stdout | aplay
-espeak -v english-us -s 140 -p 80 -g 2 "core initialized.... power on remaining systems." --stdout | aplay
+#espeak -v english-us -s 140 -p 80 -g 2 "Hi..." --stdout | aplay
+#espeak -v english-us -s 140 -p 80 -g 2 "core initialized.... power on remaining systems." --stdout | aplay
 
 rosrun speech-and-hearing speak_node.py &
+
+rostopic pub /say std_msgs/String -1 "Hi"
