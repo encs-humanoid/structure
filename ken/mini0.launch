@@ -1,6 +1,6 @@
 <launch>
-	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py"/>
-	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py"/>
+	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py" cwd="node"/>
+	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py" cwd="node"/>
 <!-- speak_node is started separately by ~/catkin_ws/src/structure/scripts/roscore_starter.ubuntu.sh
 	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
 -->
