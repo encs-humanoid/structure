@@ -30,6 +30,7 @@ import roslaunch
 import signal
 import socket
 from subprocess import Popen
+import time
 
 AF_PACKET = 17
 
@@ -121,6 +122,10 @@ class BootNode(object):
     def shutdown(self, applies_to):
 	if len(applies_to) == 0 or len(self.get_mac_addresses() & applies_to) > 0:
 	    self.stop(applies_to)
+	    # delay a bit to allow messages to propagate before powering down
+	    # this is especially important on the master node where the poweroff
+	    # may happen before the message reaches the other computers on the robot
+	    time.sleep(5)
 	    os.system("sudo poweroff")
 
 
