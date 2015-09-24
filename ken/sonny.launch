@@ -9,11 +9,6 @@
                         <param name="in" value="/stereo/left2/image_raw" />
 			<param name="out" value="/stereo/left2/detected_face" />
                 </node>
-                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
-                        <param name="in" value="/stereo/left2/image_raw" />
-                        <param name="center_gaze_x" value="0.7" />
-                        <param name="center_gaze_y" value="0.35" />
-                </node>
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/left2/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
@@ -26,15 +21,18 @@
                         <param name="in" value="/stereo/right2/image_raw" />
 			<param name="out" value="/stereo/right2/detected_face" />
                 </node>
-                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
-                        <param name="in" value="/stereo/right2/image_raw" />
-                        <param name="center_gaze_x" value="0.7" />
-                        <param name="center_gaze_y" value="0.35" />
-                </node>
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/right2/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
         </group>
+	<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
+		<param name="left" value="/stereo/left2/image_raw" />
+		<param name="right" value="/stereo/right2/image_raw" />
+		<param name="center_gaze_left_x" value="0.7" />
+		<param name="center_gaze_left_y" value="0.35" />
+		<param name="center_gaze_right_x" value="0.7" />
+		<param name="center_gaze_right_y" value="0.35" />
+	</node>
 -->
 
         <group ns="/stereo/left">
@@ -43,11 +41,6 @@
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/left/image_raw" />
 			<param name="out" value="/stereo/left/detected_face" />
-                </node>
-                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
-                        <param name="in" value="/stereo/left/image_raw" />
-                        <param name="center_gaze_x" value="0.7" />
-                        <param name="center_gaze_y" value="0.35" />
                 </node>
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/left/detected_face /detected_face">
 			<param name="lazy" value="True"/>
@@ -61,15 +54,19 @@
                         <param name="in" value="/stereo/right/image_raw" />
                         <param name="out" value="/stereo/right/detected_face" />
                 </node>
-                <node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
-                        <param name="in" value="/stereo/right/image_raw" />
-                        <param name="center_gaze_x" value="0.33" />
-                        <param name="center_gaze_y" value="0.54" />
-                </node>
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/right/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
         </group>
+
+	<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
+		<param name="left" value="/stereo/left/image_raw" />
+		<param name="right" value="/stereo/right/image_raw" />
+		<param name="center_gaze_left_x" value="0.7" />
+		<param name="center_gaze_left_y" value="0.35" />
+		<param name="center_gaze_right_x" value="0.33" />
+		<param name="center_gaze_right_y" value="0.54" />
+	</node>
 
 	<node name="recognize_face_node" pkg="vision" type="recognize_face_node.py" args="" cwd="node">
 		<param name="min_match" value="5"/>
