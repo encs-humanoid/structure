@@ -10,4 +10,4 @@ export ROS_IP=192.168.8.100
 
 # Installer script should set next line to path of boot_node.
 cd $SCRIPT_DIR
-$SCRIPT_DIR/boot_node.py > $SCRIPT_DIR/boot_node.log 2>&1
+$SCRIPT_DIR/boot_node.py --shutdown_delay 15 > $SCRIPT_DIR/boot_node.log 2>&1

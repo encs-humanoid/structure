@@ -22,26 +22,35 @@
 #===================================================================
 
 from __future__ import print_function
-import rospy
-from std_msgs.msg import String
-import os
+import argparse
 import netifaces as ni
+import os
 import roslaunch
+import rospy
 import signal
 import socket
+from std_msgs.msg import String
 from subprocess import Popen
-import time
+import sys
 import threading
+import time
 
 AF_PACKET = 17
 
 class BootNode(object):
     def __init__(self):
+        rospy.init_node('boot', anonymous=True)
+
         self.actions = {"reset": self.reset, "stop": self.stop, "shutdown": self.shutdown, "status": self.status}
         self.launch_process = None
-        rospy.init_node('boot', anonymous=True)
-	self.status_publisher = rospy.Publisher("say", String)
+
+	myargs = rospy.myargv(sys.argv)  # process ROS args and return the rest
+	parser = argparse.ArgumentParser(description="Start and manage ROS nodes at boot time")
+	parser.add_argument("--shutdown_delay", default=0, type=int, help="Number of seconds to delay before issuing the poweroff command")
+	self.options = parser.parse_args(myargs[1:])
+
         rospy.Subscriber('boot', String, self.on_boot_topic)
+	self.status_publisher = rospy.Publisher("say", String)
 
 
     def on_boot_topic(self, msg):
@@ -138,7 +147,7 @@ class BootNode(object):
 	    # delay a bit to allow messages to propagate before powering down
 	    # this is especially important on the master node where the poweroff
 	    # may happen before the message reaches the other computers on the robot
-	    time.sleep(5)
+	    time.sleep(self.options.shutdown_delay)
 	    os.system("sudo poweroff")
 
 
