@@ -107,14 +107,14 @@
     <orderEntry type="library" exported="" name="com.springsource.org.apache.commons.logging-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="apache_xmlrpc_server-0.1.6" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
-    <orderEntry type="library" exported="" name="std_msgs-0.5.8" level="project" />
     <orderEntry type="library" exported="" name="ws-commons-util-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="std_msgs-0.5.8" level="project" />
     <orderEntry type="library" exported="" name="tf2_msgs-0.4.9" level="project" />
     <orderEntry type="library" exported="" name="junit-4.8.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
-    <orderEntry type="library" exported="" name="netty-3.5.2.Final" level="project" />
     <orderEntry type="library" exported="" name="gradle_plugins-0.1.16" level="project" />
     <orderEntry type="library" exported="" name="com.springsource.org.apache.commons.io-1.4.0" level="project" />
+    <orderEntry type="library" exported="" name="netty-3.5.2.Final" level="project" />
     <orderEntry type="library" exported="" name="com.springsource.org.apache.commons.lang-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="com.springsource.org.apache.commons.httpclient-3.1.0" level="project" />
   </component>

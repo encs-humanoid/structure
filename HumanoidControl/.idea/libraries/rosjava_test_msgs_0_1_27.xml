@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="rosjava_test_msgs-0.1.27">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/rosjava_test_msgs-0.1.27.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

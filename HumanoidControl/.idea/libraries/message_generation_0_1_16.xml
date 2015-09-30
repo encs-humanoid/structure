@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="message_generation-0.1.16">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/message_generation-0.1.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
