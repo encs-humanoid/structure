@@ -45,6 +45,16 @@
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/left/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
+
+		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="image" value="/stereo/left/image_raw" />
+			<param name="detected" value="/stereo/left/detected_face" />
+			<param name="out" value="/stereo/left/image_annotated_raw" />
+		</node>
+
+		<node name="republish_annotated" pkg="image_transport" type="republish"
+			args="raw in:=/stereo/left/image_annotated_raw compressed out:=/stereo/left/image_annotated"/>
+
         </group>
 
         <group ns="/stereo/right">
@@ -57,6 +67,16 @@
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/right/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
+
+		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="image" value="/stereo/right/image_raw" />
+			<param name="detected" value="/stereo/right/detected_face" />
+			<param name="out" value="/stereo/right/image_annotated_raw" />
+		</node>
+
+		<node name="republish_annotated" pkg="image_transport" type="republish"
+			args="raw in:=/stereo/right/image_annotated_raw compressed out:=/stereo/right/image_annotated"/>
+
         </group>
 
 	<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
