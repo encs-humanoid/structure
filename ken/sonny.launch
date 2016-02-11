@@ -38,6 +38,8 @@
         <group ns="/stereo/left">
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
+		<!--
+		-->
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/left/image_raw" />
 			<param name="out" value="/stereo/left/detected_face" />
@@ -47,6 +49,7 @@
 		</node>
 
 		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="frame" value="/stereo/left/camera" />
 			<param name="image" value="/stereo/left/image_raw" />
 			<param name="detected" value="/stereo/left/detected_face" />
 			<param name="out" value="/stereo/left/image_annotated_raw" />
@@ -60,6 +63,8 @@
         <group ns="/stereo/right">
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
+		<!--
+		-->
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/right/image_raw" />
                         <param name="out" value="/stereo/right/detected_face" />
@@ -69,6 +74,7 @@
 		</node>
 
 		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="frame" value="/stereo/right/camera" />
 			<param name="image" value="/stereo/right/image_raw" />
 			<param name="detected" value="/stereo/right/detected_face" />
 			<param name="out" value="/stereo/right/image_annotated_raw" />
