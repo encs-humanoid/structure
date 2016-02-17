@@ -39,7 +39,6 @@
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
 		<!--
-		-->
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/left/image_raw" />
 			<param name="out" value="/stereo/left/detected_face" />
@@ -47,11 +46,12 @@
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/left/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
+		-->
 
 		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
 			<param name="frame" value="/stereo/left/camera" />
 			<param name="image" value="/stereo/left/image_raw" />
-			<param name="detected" value="/stereo/left/detected_face" />
+			<param name="detected" value="/detected_face" />
 			<param name="out" value="/stereo/left/image_annotated_raw" />
 		</node>
 
@@ -64,7 +64,6 @@
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
 		<!--
-		-->
                 <node name="face_detect_node" pkg="vision" type="face_detect_node.py" args="$(arg face_detect_node_args)">
                         <param name="in" value="/stereo/right/image_raw" />
                         <param name="out" value="/stereo/right/detected_face" />
@@ -72,11 +71,12 @@
 		<node name="relay" pkg="topic_tools" type="relay" args="/stereo/right/detected_face /detected_face">
 			<param name="lazy" value="True"/>
 		</node>
+		-->
 
 		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
 			<param name="frame" value="/stereo/right/camera" />
 			<param name="image" value="/stereo/right/image_raw" />
-			<param name="detected" value="/stereo/right/detected_face" />
+			<param name="detected" value="/detected_face" />
 			<param name="out" value="/stereo/right/image_annotated_raw" />
 		</node>
 
@@ -85,9 +85,17 @@
 
         </group>
 
+	<!--
 	<node name="simple_face_tracker" pkg="vision" type="simple_face_tracker.py">
 		<param name="left" value="/stereo/left/image_raw" />
 		<param name="right" value="/stereo/right/image_raw" />
+		<param name="center_gaze_left_x" value="0.7" />
+		<param name="center_gaze_left_y" value="0.35" />
+		<param name="center_gaze_right_x" value="0.33" />
+		<param name="center_gaze_right_y" value="0.54" />
+	</node>
+	-->
+	<node name="vision_node" pkg="vision" type="vision_node.py">
 		<param name="center_gaze_left_x" value="0.7" />
 		<param name="center_gaze_left_y" value="0.35" />
 		<param name="center_gaze_right_x" value="0.33" />
