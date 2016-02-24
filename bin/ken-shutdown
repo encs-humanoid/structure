@@ -1,0 +1,2 @@
+#!/bin/bash
+rostopic pub /boot std_msgs/String -1 shutdown
