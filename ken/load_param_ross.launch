@@ -3,18 +3,20 @@
   <!-- ROS master is 10.0.0.102 for this robot -->
 
   <!-- 10.0.0.101 rpi-bplus wlan0 -->
-  <param name="/role/boot_node_44334c8e83db" textfile="/home/pi/catkin_ws/src/structure/ken/ross_left_eye.launch" />
+  <param name="/role/boot_node_44334c8e83db" textfile="$(find structure)/ken/ross_left_eye.launch" />
 
   <!-- 10.0.0.102 rpi-b wlan0 -->
-  <param name="/role/boot_node_44334c8e17d3" textfile="/home/pi/catkin_ws/src/structure/ken/ross_right_eye.launch" />
+  <param name="/role/boot_node_44334c8e17d3" textfile="$(find structure)/ken/ross_right_eye.launch" />
 
   <!-- 10.0.0.103 dragon wlan0 -->
-  <param name="/role/boot_node_a088693deece" textfile="/home/pi/catkin_ws/src/structure/ken/ross.launch" />
+  <param name="/role/boot_node_a088693deece" textfile="$(find structure)/ken/ross.launch" />
 
   <!-- 10.0.0.? (DHCP) dragon eth0 -->
-  <param name="/role/boot_node_448a5b4301f5" textfile="/home/pi/catkin_ws/src/structure/ken/ross.launch" />
+  <param name="/role/boot_node_448a5b4301f5" textfile="$(find structure)/ken/ross.launch" />
 
   <!-- 10.0.0.106 ubuntu eth0 -->
-  <param name="/role/boot_node_00044b212230" textfile="/home/pi/catkin_ws/src/structure/ken/ross_jetson.launch" />
+  <param name="/role/boot_node_00044b212230" textfile="$(find structure)/ken/ross_jetson.launch" />
+
+  <rosparam command="load" file="$(find structure)/ken/ross_params.yaml"/>
 
 </launch>
