@@ -1,0 +1,53 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          ros-boot-node
+# Required-Start:    hostname $local_fs
+# Required-Stop:
+# Should-Start:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: ros-boot-node
+# Description:       Start start_boot_node.sh
+### END INIT INFO
+
+# The following lines are edited by install_boot_node_starter.sh
+# before copying this file to /etc/init.d/ros-boot-node
+ROS_MASTER_IP=
+IFACE=
+SHUTDOWN_DELAY=
+RUSER=
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:
+. /lib/init/vars.sh
+
+do_start () {
+	sudo -u $RUSER /home/$RUSER/catkin_ws/src/structure/scripts/start_boot_node.sh $IFACE $ROS_MASTER_IP $SHUTDOWN_DELAY &
+}
+
+do_stop () {
+	PIDFILE=/tmp/ros-boot-node.pid
+	if [ -f $PIDFILE ]; then
+		read PID <$PIDFILE
+		kill $PID
+		rm /tmp/ros-boot-node.pid
+	fi
+}
+
+case "$1" in
+  start|"")
+	do_start
+	;;
+  restart|reload|force-reload|status)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	do_stop
+	;;
+  *)
+	echo "Usage: ros-boot-node [start|stop]" >&2
+	exit 3
+	;;
+esac
+
+:

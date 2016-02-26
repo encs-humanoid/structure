@@ -23,6 +23,7 @@
 
 from __future__ import print_function
 import argparse
+import atexit
 import netifaces as ni
 import os
 import roslaunch
@@ -164,8 +165,15 @@ class BootNode(object):
         rospy.spin()
 
 
+    def on_exit(self):
+	self.stop("")
+
+
 if __name__ == "__main__":
     try:
 	boot_node = BootNode()
+	atexit.register(boot_node.on_exit)
 	boot_node.run()
-    except rospy.ROSInterruptException: pass
+    except rospy.ROSInterruptException:
+	pass
+

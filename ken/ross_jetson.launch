@@ -1,0 +1,16 @@
+<launch>
+	<node name="recognize_face_node" pkg="vision" type="recognize_face_node.py" args="" cwd="node">
+		<param name="min_match" value="5"/>
+		<param name="min_processes" value="4"/>
+		<param name="facedb" value="facedb"/>
+	</node>
+
+	<node name="learn_face_node" pkg="vision" type="learn_face_node.py" args="" cwd="node">
+		<param name="delta_xy_px" value="20"/>
+		<param name="delta_t_ms" value="1000"/>
+		<param name="facedb" value="facedb"/>
+	</node>
+
+	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py" cwd="node"/>
+</launch>
+

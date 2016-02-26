@@ -1,0 +1,52 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          roscore
+# Required-Start:    hostname $local_fs
+# Required-Stop:
+# Should-Start:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: roscore
+# Description:       Start start_roscore.sh
+### END INIT INFO
+
+# The following lines are edited by install_roscore_starter.sh
+# before copying this file to /etc/init.d/roscore
+IFACE=
+ROBOT=
+RUSER=
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin:
+. /lib/init/vars.sh
+
+do_start () {
+	sudo -u $RUSER /home/$RUSER/catkin_ws/src/structure/scripts/start_roscore.sh $IFACE $ROBOT &
+}
+
+do_stop () {
+	PIDFILE=/tmp/roscore.pid
+	if [ -f $PIDFILE ]; then
+		read PID <$PIDFILE
+		kill $PID
+		rm /tmp/roscore.pid
+	fi
+}
+
+case "$1" in
+  start|"")
+	do_start
+	;;
+  restart|reload|force-reload|status)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	do_stop
+	;;
+  *)
+	echo "Usage: roscore [start|stop]" >&2
+	exit 3
+	;;
+esac
+
+:

@@ -1,0 +1,13 @@
+<launch>
+	<group ns="/stereo/right">
+		<node name="raspicam_node_right" pkg="raspicam" type="raspicam_node" launch-prefix="$(find structure)/ken/start_capture2_right.sh">
+			<param name="width"  value="600" />
+			<param name="height" value="400" />
+			<param name="framerate" value="15" />
+			<param name="quality" value="10"/>
+			<param name="tf_prefix" value="/stereo/right"/>
+			<remap from="camera2/camera_info" to="camera_info" />
+			<remap from="camera2/image/compressed" to="camera/image/compressed" />
+		</node>
+	</group>
+</launch>
