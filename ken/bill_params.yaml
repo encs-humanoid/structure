@@ -1,0 +1,4 @@
+vision_node/center_gaze_left_x: 0.6
+vision_node/center_gaze_left_y: 0.6
+vision_node/center_gaze_right_x: 0.6
+vision_node/center_gaze_right_y: 0.6
