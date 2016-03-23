@@ -9,5 +9,5 @@
 			<remap from="camera/camera_info" to="camera_info" />
 		</node>
 	</group>
-	<node name="pan_tilt_node" pkg="demo" type="pipan_node.py"/>
+	<node name="pan_tilt_node" pkg="vision" type="pan_tilt_node.py"/>
 </launch>
