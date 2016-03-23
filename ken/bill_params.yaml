@@ -1,0 +1,12 @@
+vision_node/center_gaze_left_x: 0.6
+vision_node/center_gaze_left_y: 0.6
+vision_node/center_gaze_right_x: 0.6
+vision_node/center_gaze_right_y: 0.6
+pan_tilt_node/pan_pin: 0
+pan_tilt_node/tilt_pin: 1
+pan_tilt_node/pan_left_limit: 80
+pan_tilt_node/pan_right_limit: 190
+pan_tilt_node/tilt_down_limit: 110
+pan_tilt_node/tilt_up_limit: 210
+pan_tilt_node/pan_center: 135
+pan_tilt_node/tilt_center: 160
