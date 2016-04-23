@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ~/catkin_ws/src/ai/sandbox/chatbot_ros_node
+python ./human_input.py
