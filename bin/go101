@@ -1,0 +1,3 @@
+#!/bin/bash
+ip101=`echo ${ROS_IP} | sed 's/10[012]/101/'`
+ssh -X pi@${ip101}

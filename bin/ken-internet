@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -X pi@10.0.1.1 /usr/sbin/wpa_gui
