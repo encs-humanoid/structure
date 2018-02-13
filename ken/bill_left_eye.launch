@@ -1,0 +1,18 @@
+<launch>
+	<group ns="/stereo/left">
+		<node name="raspicam_node_left" pkg="raspicam" type="raspicam_node" launch-prefix="$(find structure)/ken/start_capture_left.sh">
+			<param name="width"  value="600" />
+			<param name="height" value="400" />
+			<param name="framerate" value="15" />
+			<param name="quality" value="10"/>
+			<param name="tf_prefix" value="/stereo/left"/>
+			<remap from="camera/camera_info" to="camera_info" />
+		</node>
+	</group>
+	<node name="pan_tilt_node" pkg="vision" type="pan_tilt_node.py"/>
+	<node name="ros_i2cmove" pkg="vision" type="ros_i2cmove.py" cwd="node"/>
+	<node name="joy_control" pkg="vision" type="joy_control.py" cwd="node"/>
+	<!--
+	<node name="joy_eyes" pkg="vision" type="joy_eyes.py" cwd="node"/>
+	-->
+</launch>

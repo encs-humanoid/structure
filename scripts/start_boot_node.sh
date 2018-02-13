@@ -14,6 +14,21 @@ IFACE=$1
 ROS_MASTER_IP=$2
 SHUTDOWN_DELAY=$3
 
+echo "#### set IFACE=$1"
+echo "#### set ROS_MASTER_IP=$2"
+echo "#### set SHUTDOWN_DELAY=$3"
+
+while [ 1 ]; do
+
+  echo "$0:  Wait for network..."
+  if [ $(ip add sh dev ${IFACE} | grep inet | wc -l) -ne 0 ]; then
+     break
+  fi
+
+  sleep 1
+
+done
+
 # Set up the ROS environment
 source /home/${USER}/catkin_ws/devel/setup.bash
 export ROS_MASTER_URI=http://${ROS_MASTER_IP}:11311/

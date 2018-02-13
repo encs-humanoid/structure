@@ -1,0 +1,16 @@
+<launch>
+  <!-- launch configuration for the BILL robot -->
+  <!-- ROS master is 192.168.1.102 for this robot -->
+
+  <!-- 192.168.1.100 johnny5 eth0 -->
+  <param name="/role/boot_node_f832e4a260ba" textfile="$(find structure)/ken/johnny5.launch" />
+
+  <!-- 192.168.1.101 rpi101 eth0 -->
+  <param name="/role/boot_node_b827eb01bc45" textfile="$(find structure)/ken/bill_left_eye.launch" />
+
+  <!-- 192.168.1.102 rpi102 eth0 -->
+  <param name="/role/boot_node_b827ebb77410" textfile="$(find structure)/ken/bill_right_eye.launch" />
+
+  <rosparam command="load" file="$(find structure)/ken/bill_params.yaml"/>
+
+</launch>

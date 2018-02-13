@@ -1,0 +1,43 @@
+<launch>
+
+        <group ns="/stereo/left">
+                <node name="republish" pkg="image_transport" type="republish"
+                        args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
+
+		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="frame" value="/stereo/left/camera" />
+			<param name="image" value="/stereo/left/image_raw" />
+			<param name="detected" value="/detected_face" />
+			<param name="out" value="/stereo/left/image_annotated_raw" />
+		</node>
+
+		<node name="republish_annotated" pkg="image_transport" type="republish"
+			args="raw in:=/stereo/left/image_annotated_raw compressed out:=/stereo/left/image_annotated"/>
+
+        </group>
+
+        <group ns="/stereo/right">
+                <node name="republish" pkg="image_transport" type="republish"
+                        args="compressed in:=/stereo/right/camera/image _image_transport:=compressed raw out:=/stereo/right/image_raw"/>
+
+		<node name="annotate_face_node" pkg="vision" type="annotate_face_node.py" cwd="node" args="--nonn">
+			<param name="frame" value="/stereo/right/camera" />
+			<param name="image" value="/stereo/right/image_raw" />
+			<param name="detected" value="/detected_face" />
+			<param name="out" value="/stereo/right/image_annotated_raw" />
+		</node>
+
+		<node name="republish_annotated" pkg="image_transport" type="republish"
+			args="raw in:=/stereo/right/image_annotated_raw compressed out:=/stereo/right/image_annotated"/>
+
+        </group>
+
+	<node name="vision_node" pkg="vision" type="vision_node.py" cwd="node"/>
+
+	<node name="joy_node" pkg="joy" type="joy_node"/>
+	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py" cwd="node"/>
+	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py" cwd="node"/>
+	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
+
+</launch>
+

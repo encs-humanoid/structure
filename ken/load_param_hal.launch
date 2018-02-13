@@ -1,0 +1,5 @@
+<launch>
+  <param name="/role/boot_node_1c1b0d12df18" textfile="/home/human/catkin_ws/src/structure/ken/hal.launch" />
+  <param name="/role/boot_node_b827eb4733d3" textfile="/home/human/catkin_ws/src/structure/ken/hal_left_eye.launch" />
+  <param name="/role/boot_node_b827ebfc6e94" textfile="/home/human/catkin_ws/src/structure/ken/hal_right_eye.launch" />
+</launch>
