@@ -1,0 +1,20 @@
+<launch>
+        <node name="i2c_node" pkg="structure" type="i2c_driver.py">
+		<param name="pca9685_40"
+		       value="{ 'head_pan'  : {'channel': 0, 'low':100, 'high':200, 'home':150}} \
+		              { 'head_tilt' : {'channel': 1, 'low':100, 'high':200, 'home':150}} \
+		              { 'head_yaw'  : {'channel': 2, 'low':100, 'high':200, 'home':150}}">
+		</param>
+		<param name="pca9685_41"
+		       value="{ 'right_arm_shoulder_lift'   : {'channel': 0, 'low':100, 'high':200, 'home':150}} \
+		              { 'right_arm_shoulder_rotate' : {'channel': 1, 'low':100, 'high':200, 'home':150}} \
+		              { 'right_arm_shoulder_elbow'  : {'channel': 2, 'low':100, 'high':200, 'home':150}}">
+		</param>
+		<param name="pca9685_42"
+		       value="{ 'left_arm_shoulder_lift'    : {'channel':0, 'low':100, 'high':200, 'home':150}} \
+		              { 'left_arm_shoulder_rotate'  : {'channel':1, 'low':100, 'high':200, 'home':150}} \
+		              { 'left_arm_elbow'            : {'channel':2, 'low':100, 'high':200, 'home':150}}">
+		</param>
+	</node>
+</launch>
+

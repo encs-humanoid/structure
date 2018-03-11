@@ -1,0 +1,25 @@
+{
+    "left_eye": {
+	"upper_lid": { "control": [] },
+	"lower_lid": { "control": [] },
+	"pan":       { "control": [{ "axis": -1, "button": -2 }, { "axis": -1, "button": 2 }], "type": "rubber" },
+	"tilt":      { "control": [{ "axis": 2, "button": -2 }, { "axis": 2, "button": 2 }], "type": "rubber" }
+    },
+    "right_eye": {
+	"upper_lid": { "control": [] },
+	"lower_lid": { "control": [] },
+	"pan":       { "control": [{ "axis": -1 }, {"axis": -4, "button": 2}], "type": "rubber" },
+	"tilt":      { "control": [{ "axis": -2 }, {"axis": -3, "button": 2}], "type": "rubber" }
+    },
+    "right_arm": {
+    	"piv":  { "control": [{ "axis": -4, "button": 8 }], "pos": 0.6 },
+    	"rot":  { "control": [{ "axis": -7, "button": 8 }] },
+    	"flex": { "control": [{ "axis": 8, "button": 8 }] },
+	"lift": { "control": [{ "axis": 5, "button": 8}], "pos": 0.0 }
+    },
+    "neck": {
+    	"roll": { "control": [{ "axis": -7, "button": -8 }] },
+	"tilt": { "control": [{ "axis": -8, "button": -8 }, {"axis": 7, "button": 2 }], "type": "follow", "follow": {"name": "left_eye", "part": "tilt"}},
+	"pan":  { "control": [{ "axis": -4, "button": -8 }, {"axis": -6, "button": 2}], "speed": 0.025, "type": "follow", "follow": {"name": "left_eye", "part": "pan"}}
+    }
+}

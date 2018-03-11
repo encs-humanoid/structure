@@ -1,0 +1,2 @@
+#!/bin/bash -x
+rostopic pub --once i2cmove vision/I2CMove "{name: '$1',part: '$2',fraction: $3}"

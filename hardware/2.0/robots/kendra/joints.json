@@ -1,0 +1,26 @@
+{
+    "left_eye": {
+	"upper_lid": { "board": 66, "channel": 5, "llim": 78, "cntr": 105, "ulim": 105 },
+	"lower_lid": { "board": 66, "channel": 3, "llim": 120, "cntr": 120, "ulim": 160 },
+	"pan":       { "board": 66, "channel": 6, "llim": 135, "cntr": 155, "ulim": 190 },
+	"tilt":      { "board": 66, "channel": 7, "llim": 125, "cntr": 140, "ulim": 150 }
+    },
+    "right_eye": {
+	"upper_lid": { "board": 66, "channel": 9, "llim": 130, "cntr": 130, "ulim": 170 },
+	"lower_lid": { "board": 66, "channel": 8, "llim": 95, "cntr": 145, "ulim": 145 },
+	"pan":       { "board": 66, "channel": 11, "llim": 110, "cntr": 132.5, "ulim": 155 },
+	"tilt":      { "board": 66, "channel": 10, "llim": 101, "cntr": 107.5, "ulim": 122 }
+    },
+    "right_arm": {
+	"piv": { "board": 64, "channel": 14, "llim": 167, "ulim": 216 },
+    	"rot": { "board": 64, "channel": 3, "llim": 125, "ulim": 210 },
+    	"flex": { "board": 64, "channel": 6, "llim": 106, "ulim": 270},
+    	"lift": { "board": 64, "channel": 15, "llim": 139, "ulim": 251 }
+    },
+    "neck": {
+    	"roll": { "board": 66, "channel": 0, "llim": 118.8, "ulim": 194.4 },
+	"tilt": { "board": 66, "channel": 1, "llim": 126, "ulim": 180 },
+	"pan": { "board": 66, "channel": 2, "llim": 72, "ulim": 241.2 },
+	"test": {"board": 66, "channel":15, "llim":0, "ulim":200}
+    }
+}
