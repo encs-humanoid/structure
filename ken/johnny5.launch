@@ -32,12 +32,22 @@
 
         </group>
 
-	<node name="vision_node" pkg="vision" type="vision_node.py" cwd="node"/>
+	<node name="vision_node" pkg="vision" type="vision_node.py" cwd="node">
+	    <param name="center_gaze_left_x" value="0.5" />
+	    <param name="center_gaze_left_y" value="0.5" />
+	    <param name="center_gaze_right_x" value="0.5" />
+	    <param name="center_gaze_right_y" value="0.5" />
+	    <param name="gain" value="1" />
+	    <param name="tilt_joint" value="left_eye.tilt" />
+	    <param name="pan_joint" value="left_eye.pan" />
+	</node>
 
 	<node name="joy_node" pkg="joy" type="joy_node"/>
+	<!-- moved to 102
 	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py" cwd="node"/>
 	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py" cwd="node"/>
 	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
+	-->
 
 </launch>
 

@@ -9,10 +9,10 @@
 			<remap from="camera/camera_info" to="camera_info" />
 		</node>
 	</group>
-	<node name="pan_tilt_node" pkg="vision" type="pan_tilt_node.py"/>
 	<node name="ros_i2cmove" pkg="vision" type="ros_i2cmove.py" cwd="node"/>
 	<node name="joy_control" pkg="vision" type="joy_control.py" cwd="node"/>
 	<!--
+	<node name="pan_tilt_node" pkg="vision" type="pan_tilt_node.py"/>
 	<node name="joy_eyes" pkg="vision" type="joy_eyes.py" cwd="node"/>
 	-->
 </launch>
