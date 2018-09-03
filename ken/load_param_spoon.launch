@@ -1,0 +1,15 @@
+<launch>
+  <!-- launch configuration for the ROSS robot -->
+  <!-- ROS master is 192.168.4.102 for this robot -->
+
+  <!-- 192.168.4.101 rpi-bplus eth0 -->
+  <param name="/role/boot_node_b827eb228be9" textfile="$(find structure)/ken/spoon_left_eye.launch" />
+
+  <!-- 192.168.4.102 rpi-b eth0 -->
+  <param name="/role/boot_node_b827eb202d5d" textfile="$(find structure)/ken/spoon_right_eye.launch" />
+
+  <!-- 192.168.4.100 wallie eth3 -->
+  <param name="/role/boot_node_1c1b0d1a415d" textfile="$(find structure)/ken/wallie.launch" />
+
+  <rosparam command="load" file="$(find structure)/ken/spoon_params.yaml"/>
+</launch>
