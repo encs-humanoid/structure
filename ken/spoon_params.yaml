@@ -1,9 +1,9 @@
 stereo/right/simple_face_tracker/center_gaze_right_x: 0.5
 stereo/right/simple_face_tracker/center_gaze_right_y: 0.6
 vision_node/center_gaze_left_x: 0.6
-vision_node/center_gaze_left_y: 0.6
+vision_node/center_gaze_left_y: 0.5
 vision_node/center_gaze_right_x: 0.6
-vision_node/center_gaze_right_y: 0.6
+vision_node/center_gaze_right_y: 0.5
 pan_tilt_node/pan_pin: 5
 pan_tilt_node/tilt_pin: 6
 pan_tilt_node/pan_left_limit: 80
@@ -12,4 +12,4 @@ pan_tilt_node/pan_right_limit: 190
 pan_tilt_node/tilt_down_limit: 170
 pan_tilt_node/tilt_center: 155
 pan_tilt_node/tilt_up_limit: 120
-listen_node/device: 2
+listen_node/device: 3

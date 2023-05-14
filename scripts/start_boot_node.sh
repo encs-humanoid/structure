@@ -32,7 +32,8 @@ done
 # Set up the ROS environment
 source /home/${USER}/catkin_ws/devel/setup.bash
 export ROS_MASTER_URI=http://${ROS_MASTER_IP}:11311/
-export ROS_IP=`/sbin/ip addr sh dev ${IFACE} | /bin/grep inet | /usr/bin/xargs | /usr/bin/cut -d\  -f2 | /usr/bin/cut -d/ -f1`
+#export ROS_IP=`/sbin/ip addr sh dev ${IFACE} | /bin/grep inet | /usr/bin/xargs | /usr/bin/cut -d\  -f2 | /usr/bin/cut -d/ -f1`
+export ROS_IP=192.168.4.102
 
 # Start the boot_node
 SCRIPT_DIR=/home/${USER}/catkin_ws/src/structure/scripts

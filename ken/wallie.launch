@@ -1,5 +1,10 @@
 <launch>
         <group ns="/stereo/left">
+		<!-- if the left eye is not working, copy the right eye image to the left -->
+		<!-- node name="relay" pkg="topic_tools" type="relay" args="/stereo/right/image_raw /stereo/left/image_raw">
+                        <param name="lazy" value="True"/>
+                </node -->
+
                 <node name="republish" pkg="image_transport" type="republish"
                         args="compressed in:=/stereo/left/camera/image _image_transport:=compressed raw out:=/stereo/left/image_raw"/>
 
@@ -54,11 +59,9 @@
 
 <!--  moved to right eye 102
 	<node name="ai_respond_node" pkg="ai" type="ai_respond_node.py" cwd="node"/>
-	<node name="listen_node" pkg="speech-and-hearing" type="listen_node.py" cwd="node"/>
-
 	<node name="speak_node" pkg="speech-and-hearing" type="speak_node.py"/>
 -->
-
+	<node name="whisper_node" pkg="speech-and-hearing" type="whisper_node.py" cwd="node"/>
 	<node name="joy_node" pkg="joy" type="joy_node"/>
 
 </launch>

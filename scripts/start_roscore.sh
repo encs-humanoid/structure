@@ -21,18 +21,29 @@ fi
 
 echo "#### number of parameters is okay"
 
-# get a list of all the network interfaces available
-ifaces=`/bin/netstat -i | /bin/egrep -v "Kernel|Iface" | /usr/bin/cut -d\  -f1`
+# verify that network interface is available - retry for 10 sec
+RETRY_COUNT=0
+while [ 1 ] ; do
 
-echo "#### found interfaces: " ${ifaces}
+    # get a list of all the network interfaces available
+    ifaces=`/bin/netstat -i | /bin/egrep -v "Kernel|Iface" | /usr/bin/cut -d\  -f1`
 
-# verify that the parameter to the script is a valid network interface
-if listcontains "${ifaces}" "$1"; then
-    IFACE=$1
-else
-    echo "Invalid network interface.  Must be one of: " ${ifaces}
-    usage
-fi
+    echo "#### found interfaces: " ${ifaces}
+
+    # verify that the parameter to the script is a valid network interface
+    if listcontains "${ifaces}" "$1"; then
+	IFACE=$1
+	break
+    else
+	((RETRY_COUNT=RETRY_COUNT + 1))
+	if ${RETRY_COUNT} > 10; then
+	    echo "Invalid network interface.  Must be one of: " ${ifaces}
+	    usage
+	fi
+	sleep 1
+    fi
+
+done
 
 ROBOT=$2
 
@@ -56,7 +67,8 @@ source /home/${USER}/catkin_ws/devel/setup.bash
 
 echo "#### sourced ROS setup"
 
-export ROS_IP=`/sbin/ip addr sh dev ${IFACE} | /bin/grep inet | /usr/bin/xargs | /usr/bin/cut -d\  -f2 | /usr/bin/cut -d/ -f1`
+#export ROS_IP=`/sbin/ip addr sh dev ${IFACE} | /bin/grep inet | /usr/bin/xargs | /usr/bin/cut -d\  -f2 | /usr/bin/cut -d/ -f1`
+export ROS_IP=192.168.4.102
 
 echo "#### set ROS_IP=$ROS_IP"
 
@@ -93,6 +105,7 @@ if [ $(find .. -name load_param_${ROBOT}.launch | wc -l) -ne 1 ]; then
     echo "Could not find load_param_${ROBOT}.launch.  Launch files not loaded to parameter server."
     exit 1
 else
+    sleep 7 # allow more time for rosout to initialize
     roslaunch structure load_param_${ROBOT}.launch --wait
     rosparam list
 fi
